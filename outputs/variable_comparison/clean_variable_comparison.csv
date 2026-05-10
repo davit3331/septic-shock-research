@@ -1,0 +1,10 @@
+Variable (Canonical Name),PhysioNet 2019 (clean),PHEMS (clean),Status
+Age,✓,✓,BOTH
+Body Temperature,✓,✓,BOTH
+Gender,✓,✓,BOTH
+Heart Rate,✓,✓,BOTH
+SpO2 / Oxygen Saturation,✓,✓,BOTH
+Respiratory Rate,✓,✓,BOTH
+Diastolic Blood Pressure,✓,—,PhysioNet only
+Mean Arterial Pressure,✓,—,PhysioNet only
+Systolic Blood Pressure,✓,—,PhysioNet only

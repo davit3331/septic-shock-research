@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Mac
+.DS_Store
+
+# Secrets / API keys
+.env
+*.key
+*.pem
+
+# Raw and processed datasets
+data/raw/*
+data/processed/*
+
+# Keep folder placeholders
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/sample/*
+!data/README.md
+
+# Large generated dataset formats
+*.parquet
+
+outputs/discretization/*.csv

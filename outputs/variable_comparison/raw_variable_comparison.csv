@@ -1,0 +1,64 @@
+Variable (Canonical Name),PhysioNet 2019,PHEMS,Status,PhysioNet Column,PHEMS Column
+Age,✓,✓,BOTH,Age,age_in_months
+Bilirubin (Total),✓,✓,BOTH,Bilirubin_total,Bilirubin.total [Moles/volume] in Serum or Plasma
+Gender,✓,✓,BOTH,Gender,gender
+Diastolic Blood Pressure,✓,✓,BOTH,DBP,Diastolic blood pressure
+Chloride,✓,✓,BOTH,Chloride,Chloride [Moles/volume] in Blood
+Glucose,✓,✓,BOTH,Glucose,Glucose [Moles/volume] in Serum or Plasma
+Heart Rate,✓,✓,BOTH,HR,Heart rate
+Hematocrit,✓,✓,BOTH,Hct,Hematocrit [Volume Fraction] of Blood
+FiO2 (Inhaled O2 Fraction),✓,✓,BOTH,FiO2,Oxygen/Gas total [Pure volume fraction] Inhaled gas
+Fibrinogen,✓,✓,BOTH,Fibrinogen,Fibrinogen measurement
+Calcium,✓,✓,BOTH,Calcium,Calcium [Moles/volume] in Serum or Plasma
+Body Temperature,✓,✓,BOTH,Temp,Body temperature
+Creatinine,✓,✓,BOTH,Creatinine,Creatinine [Mass/volume] in Blood
+Magnesium,✓,✓,BOTH,Magnesium,Magnesium [Moles/volume] in Blood
+Lactate,✓,✓,BOTH,Lactate,Lactate [Moles/volume] in Blood
+Hemoglobin,✓,✓,BOTH,Hgb,Hemoglobin [Moles/volume] in Blood
+PTT,✓,✓,BOTH,PTT,Partial thromboplastin time
+PaCO2 (Arterial),✓,✓,BOTH,PaCO2,Carbon dioxide [Partial pressure] in Arterial blood
+Platelets,✓,✓,BOTH,Platelets,Platelet count
+Respiratory Rate,✓,✓,BOTH,Resp,Respiratory rate
+White Blood Cell Count,✓,✓,BOTH,WBC,White blood cell count
+pH (Arterial),✓,✓,BOTH,pH,Blood arterial pH
+Systolic Blood Pressure,✓,✓,BOTH,SBP,Systolic blood pressure
+SpO2 / Oxygen Saturation,✓,✓,BOTH,O2Sat,Measurement of oxygen saturation at periphery
+Potassium,✓,✓,BOTH,Potassium,Potassium [Moles/volume] in Blood
+Phosphate,✓,✓,BOTH,Phosphate,Phosphate [Moles/volume] in Serum or Plasma
+Bilirubin (Direct),✓,—,PhysioNet only,Bilirubin_direct,—
+Bicarbonate (HCO3),✓,—,PhysioNet only,HCO3,—
+Alkaline Phosphatase,✓,—,PhysioNet only,Alkalinephos,—
+Base Excess,✓,—,PhysioNet only,BaseExcess,—
+BUN,✓,—,PhysioNet only,BUN,—
+AST,✓,—,PhysioNet only,AST,—
+EtCO2,✓,—,PhysioNet only,EtCO2,—
+Mean Arterial Pressure,✓,—,PhysioNet only,MAP,—
+SaO2,✓,—,PhysioNet only,SaO2,—
+Troponin I,✓,—,PhysioNet only,TroponinI,—
+Glasgow Coma Scale,—,✓,PHEMS only,—,Glasgow coma scale
+CRP (C-Reactive Protein),—,✓,PHEMS only,—,C reactive protein [Mass/volume] in Serum or Plasma
+Capillary Refill Time,—,✓,PHEMS only,—,Capillary refill [Time]
+D-Dimer,—,✓,PHEMS only,—,D-dimer level
+Arterial Pulse Pressure,—,✓,PHEMS only,—,Arterial pulse pressure
+Albumin,—,✓,PHEMS only,—,Albumin [Mass/volume] in Serum or Plasma
+ activated,—,✓,PHEMS only,—, activated
+Base Excess (Arterial),—,✓,PHEMS only,—,Base excess in Arterial blood by calculation
+Bicarbonate (Arterial),—,✓,PHEMS only,—,Bicarbonate [Moles/volume] in Arterial blood
+Base Excess (Venous),—,✓,PHEMS only,—,Base excess in Venous blood by calculation
+Bicarbonate (Venous),—,✓,PHEMS only,—,Bicarbonate [Moles/volume] in Venous blood
+Bilirubin (General),—,✓,PHEMS only,—,Bilirubin measurement
+Procalcitonin,—,✓,PHEMS only,—,Procalcitonin [Mass/volume] in Serum or Plasma
+PaO2 (Arterial),—,✓,PHEMS only,—,Oxygen [Partial pressure] in Arterial blood
+Neutrophils,—,✓,PHEMS only,—,Neutrophil Ab [Units/volume] in Serum
+Left Pupil Diameter,—,✓,PHEMS only,—,Left pupil Diameter Auto
+Ionised Calcium,—,✓,PHEMS only,—,Ionised calcium measurement
+Interleukin-6 (IL-6),—,✓,PHEMS only,—,Interleukin 6 [Mass/volume] in Body fluid
+Left Pupillary Response,—,✓,PHEMS only,—,Left pupil Pupillary response
+Prothrombin Time (PT),—,✓,PHEMS only,—,Prothrombin time (PT)
+Right Pupillary Response,—,✓,PHEMS only,—,Right pupil Pupillary response
+Right Pupil Diameter,—,✓,PHEMS only,—,Right pupil Diameter Auto
+PvCO2 (Venous),—,✓,PHEMS only,—,Carbon dioxide [Partial pressure] in Venous blood
+PvO2 (Venous),—,✓,PHEMS only,—,Oxygen [Partial pressure] in Venous blood
+Pulse / Heart Rate (alt),—,✓,PHEMS only,—,Pulse
+Sodium,—,✓,PHEMS only,—,Sodium [Moles/volume] in Serum or Plasma
+pH (Venous),—,✓,PHEMS only,—,Blood venous pH
