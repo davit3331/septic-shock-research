@@ -17,7 +17,7 @@ API_KEY = userdata.get("GEMINI_API_KEY")
 
 MODEL_NAME = "gemini-2.5-flash"
 
-CSV_PATH = "Dataset_balanced.csv"
+CSV_PATH = "physionet_balanced.csv"
 RULES_PATH = "PhysioNet_sepsis_rules.csv"  # your FP-Growth rules file
 
 MAX_PATIENTS = 100
@@ -93,38 +93,62 @@ print(f"Loaded {len(RULES)} FP-Growth rules.")
 def discretize_row(row):
     """
     Convert a row's raw vitals into category labels using PhysioNet thresholds.
-    Returns a set of active categories e.g. {'Temp_high', 'Resp_high', 'O2Sat_low'}
+    Three-way split for all variables matching discretize_physionet() exactly.
+ 
+    HR:    > 127   = high,  < 60    = low,  else = normal
+    Temp:  > 38.45 = high,  < 36.0  = low,  else = normal
+    Resp:  > 20    = high,  < 12    = low,  else = normal
+    O2Sat: < 92.6  = low,   > 99    = high, else = normal
     """
     categories = set()
-
+ 
     def get(col):
         val = row.get(col, None)
         if val is None or pd.isna(val):
             return None
         return float(val)
-
+ 
     # Temp
     temp = get("Temp")
     if temp is not None:
-        categories.add("Temp_high" if temp > THRESHOLDS["Temp"] else "Temp_normal")
-
+        if temp > THRESHOLDS["Temp"]:
+            categories.add("Temp_high")
+        elif temp < 36.0:
+            categories.add("Temp_low")
+        else:
+            categories.add("Temp_normal")
+ 
     # Resp
     resp = get("Resp")
     if resp is not None:
-        categories.add("Resp_high" if resp > THRESHOLDS["Resp"] else "Resp_normal")
-
+        if resp > THRESHOLDS["Resp"]:
+            categories.add("Resp_high")
+        elif resp < 12:
+            categories.add("Resp_low")
+        else:
+            categories.add("Resp_normal")
+ 
     # HR
     hr = get("HR")
     if hr is not None:
-        categories.add("HR_high" if hr > THRESHOLDS["HR"] else "HR_normal")
-
-    # O2Sat — note: low is BELOW threshold
+        if hr > THRESHOLDS["HR"]:
+            categories.add("HR_high")
+        elif hr < 60:
+            categories.add("HR_low")
+        else:
+            categories.add("HR_normal")
+ 
+    # O2Sat — dangerous direction is downward
     o2sat = get("O2Sat")
     if o2sat is not None:
-        categories.add("O2Sat_low" if o2sat < THRESHOLDS["O2Sat"] else "O2Sat_normal")
-
+        if o2sat < THRESHOLDS["O2Sat"]:
+            categories.add("O2Sat_low")
+        elif o2sat > 99:
+            categories.add("O2Sat_high")
+        else:
+            categories.add("O2Sat_normal")
+ 
     return categories
-
 
 # =========================
 # MATCH RULES FOR A PATIENT
@@ -150,7 +174,15 @@ def format_rules_for_prompt(matching_rules, patient_categories):
     Format matching rules into readable text for the prompt.
     """
     if not matching_rules:
-        return "No association rules matched this patient's variable profile."
+        return (
+            "Agent A — Data Analysis Rules (from FP-Growth mining on 5,864 ICU patients):\n"
+            f"Patient variable profile: {', '.join(sorted(patient_categories))}\n\n"
+            "No sepsis-predicting patterns were found in this patient's variable profile. "
+            "This patient's vitals do not match any combination of variables associated with sepsis "
+            "across 5,864 ICU patients. This is evidence against a sepsis prediction — predict 0 unless "
+            "the clinical vitals below provide strong contradicting evidence."
+        )
+
 
     lines = ["Agent A — Data Analysis Rules (from FP-Growth mining on 5,864 ICU patients):"]
     lines.append(f"Patient variable profile: {', '.join(sorted(patient_categories))}")
