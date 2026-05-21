@@ -54,7 +54,7 @@ df = df.set_index("Patient_ID")
 df = df.groupby("Patient_ID").ffill()
 df = df.groupby("Patient_ID").bfill()
 df = df.reset_index()
-
+df["Patient_ID"] = df["Patient_ID"].astype(int)
 
 # =========================
 # LOAD & PARSE FP-GROWTH RULES
