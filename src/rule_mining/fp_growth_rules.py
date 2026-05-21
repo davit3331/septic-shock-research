@@ -63,7 +63,7 @@ def generate_association_rules(frequent_itemsets, metric="confidence", min_thres
 
 #Filter rules where consequent (right side) is "Sepsis"
 def filter_sepsis_rules(rules):
-    sepsis_rules = rules[rules['consequents'].apply(lambda x: 'Sepsis' in x)]
+    sepsis_rules = rules[rules['consequents'] == frozenset({'Sepsis'})]
     return sepsis_rules
 
 #sort by confidence descending
