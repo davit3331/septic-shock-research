@@ -1,0 +1,36 @@
+============================================================
+GEMINI FEW-SHOT + AGENT A — REPORT
+============================================================
+Model:                  gemini-2.5-flash
+Dataset:                /Users/davitpiruzyan/Desktop/septic-shock-research-github/data/processed/physionet_balanced.csv
+Prompt Type:            Few-Shot + Agent A Rules
+N_SHOT:                 1
+FP-Growth Rules:        19
+MAX_PATIENTS:           100
+MAX_TIMESTEPS:          48
+Total Attempted:        100
+Valid Full Predictions: 99
+Valid Final Predictions:99
+============================================================
+
+FULL TIMESTEPS CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.69      0.21      0.32        43
+           1       0.60      0.93      0.73        56
+
+    accuracy                           0.62        99
+   macro avg       0.65      0.57      0.53        99
+weighted avg       0.64      0.62      0.55        99
+
+
+FINAL TIMESTEP CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.51      0.50      0.51        42
+           1       0.64      0.65      0.64        57
+
+    accuracy                           0.59        99
+   macro avg       0.58      0.57      0.57        99
+weighted avg       0.58      0.59      0.59        99
+
