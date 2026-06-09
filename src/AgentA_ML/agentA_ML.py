@@ -281,7 +281,7 @@ for i, (idx, row) in enumerate(X_test_llm.iterrows()):
         "LLM_Raw": llm_raw,
     })
  
-    print(f"[{i+1}/{len(X_test)}] Patient {patient_id} | Truth={true_label} | XGB={xgb_pred} ({xgb_proba:.0%}) | LLM={llm_pred}")
+    print(f"[{i+1}/{len(X_test_llm)}] Patient {patient_id} | Truth={true_label} | XGB={xgb_pred} ({xgb_proba:.0%}) | LLM={llm_pred}")
     time.sleep(SLEEP_SECONDS)
  
  

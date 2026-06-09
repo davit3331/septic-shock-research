@@ -1,0 +1,40 @@
+============================================================
+AGENT A ML REPORT
+============================================================
+LLM Model:              gemini-2.5-flash
+XGBoost AUROC:          0.892
+Random Forest AUROC:    0.884
+Test patients:          1173
+Valid LLM predictions:  100
+============================================================
+
+XGBoost Standalone:
+              precision    recall  f1-score   support
+
+           0       0.79      0.87      0.83       575
+           1       0.86      0.78      0.82       598
+
+    accuracy                           0.82      1173
+   macro avg       0.83      0.83      0.82      1173
+weighted avg       0.83      0.82      0.82      1173
+
+Random Forest Standalone:
+              precision    recall  f1-score   support
+
+           0       0.76      0.91      0.83       575
+           1       0.90      0.72      0.80       598
+
+    accuracy                           0.81      1173
+   macro avg       0.83      0.82      0.81      1173
+weighted avg       0.83      0.81      0.81      1173
+
+LLM guided by XGBoost:
+              precision    recall  f1-score   support
+
+           0       0.79      0.60      0.68        57
+           1       0.60      0.79      0.68        43
+
+    accuracy                           0.68       100
+   macro avg       0.69      0.69      0.68       100
+weighted avg       0.71      0.68      0.68       100
+
