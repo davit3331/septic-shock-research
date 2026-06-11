@@ -233,3 +233,10 @@ lactate_high_map_ok = (
     (patient_agg["Lactate_max"] > 2.0)
 )
 print(f"MAP >= 65 but Lactate > 2: {lactate_high_map_ok.sum():,}")
+
+clean_nonshock = (
+    (patient_agg["MAP_min"] >= 65) &
+    (patient_agg["Lactate_measured"] == 1) &
+    (patient_agg["Lactate_max"] <= 2.0)
+)
+print(f"Confirmed clean non-shock: {clean_nonshock.sum():,}")
