@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 CSV_PATH = ROOT_DIR / "data" / "raw" / "physionet_2019.csv"
 
 df = pd.read_csv(CSV_PATH)
@@ -51,7 +51,7 @@ for col in sofa_cols:
 import pandas as pd
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 CSV_PATH = ROOT_DIR / "data" / "raw" / "physionet_2019.csv"
 
 df = pd.read_csv(CSV_PATH, nrows=1)

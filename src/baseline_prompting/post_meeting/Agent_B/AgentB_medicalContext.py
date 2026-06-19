@@ -5,6 +5,8 @@ import pandas as pd
 from google import genai
 from sklearn.metrics import classification_report
 
+from pathlib import Path
+
 #########################################################
 #### #1 is Configuration step - set up Gemini API client
 #########################################################
@@ -16,8 +18,12 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 
 MODEL_NAME = "gemini-2.5-flash"
 
+# Repo root: walk up until we find requirements.txt. Works no matter where the
+# repo is cloned or how deeply this script is nested. See README "File Paths".
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
+
 # Input CSV path — using balanced dataset (50/50 sepsis/no-sepsis)
-CSV_PATH = "/Users/davitpiruzyan/Desktop/septic-shock-research-github/data/processed/physionet_balanced.csv"
+CSV_PATH = ROOT_DIR / "data" / "processed" / "physionet_balanced.csv"
 
 # Limit patients for testing first. Increase Later.
 MAX_PATIENTS = 100

@@ -5,6 +5,8 @@ import pandas as pd
 from google import genai
 from sklearn.metrics import classification_report
 
+from pathlib import Path
+
 #########################################################
 #### AGENT A — DATA-DRIVEN ONLY
 #### No clinical English interpretation (no Simran context)
@@ -17,8 +19,12 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 
 MODEL_NAME = "gemini-2.5-flash"
 
-CSV_PATH = "/Users/davitpiruzyan/Desktop/septic-shock-research-github/data/processed/physionet_balanced.csv"
-RULES_PATH = "/Users/davitpiruzyan/Desktop/septic-shock-research-github/outputs/association_rules/PhysioNet_sepsis_rules.csv"
+# Repo root: walk up until we find requirements.txt. Works no matter where the
+# repo is cloned or how deeply this script is nested. See README "File Paths".
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
+
+CSV_PATH = ROOT_DIR / "data" / "processed" / "physionet_balanced.csv"
+RULES_PATH = ROOT_DIR / "outputs" / "association_rules" / "PhysioNet_sepsis_rules.csv"
 
 MAX_PATIENTS = 100
 MAX_TIMESTEPS_PER_PATIENT = 48

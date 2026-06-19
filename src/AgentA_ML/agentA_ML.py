@@ -11,13 +11,19 @@ from sklearn.model_selection import train_test_split
 from google import genai
 from sklearn.metrics import roc_auc_score
 
+from pathlib import Path
+
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 MODEL_NAME = "gemini-2.5-flash"
 
-CSV_PATH = "/Users/davitpiruzyan/Desktop/septic-shock-research-github/data/processed/physionet_balanced.csv"
+# Repo root: walk up until we find requirements.txt. Works no matter where the
+# repo is cloned or how deeply this script is nested. See README "File Paths".
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 
-RULES_PATH = "/Users/davitpiruzyan/Desktop/septic-shock-research-github/outputs/association_rules/PhysioNet_sepsis_rules.csv"
+CSV_PATH = ROOT_DIR / "data" / "processed" / "physionet_balanced.csv"
+
+RULES_PATH = ROOT_DIR / "outputs" / "association_rules" / "PhysioNet_sepsis_rules.csv"
 
 MAX_PATIENTS = 100
 MAX_TIMESTEPS_PER_PATIENT = 48

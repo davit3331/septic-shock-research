@@ -6,7 +6,8 @@ from sklearn.model_selection import train_test_split
 # =========================
 # CONFIGURATION
 # =========================
-ROOT_DIR = Path(__file__).resolve().parents[2]
+# Repo root: walk up until we find requirements.txt (works at any nesting depth).
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 CSV_PATH = ROOT_DIR / "data" / "processed" / "physionet_balanced.csv"
 OUTPUT_DIR = ROOT_DIR / "data" / "processed" / "transformer"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

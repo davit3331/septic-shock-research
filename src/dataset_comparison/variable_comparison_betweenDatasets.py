@@ -8,7 +8,7 @@ from pathlib import Path
 # =========================
 # CONFIGURATION
 # =========================
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 
 PHEMS_FLAT_PATH = ROOT_DIR / "data" / "processed" / "phems_flat.csv"
 PHEMS_CLEAN_PATH = ROOT_DIR / "data" / "processed" / "phems_clean.csv"
@@ -21,7 +21,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 # =========================
 # CONFIGURATION
 # =========================
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 
 PHEMS_FLAT_PATH = ROOT_DIR / "data" / "processed" / "phems_flat.csv"
 PHEMS_CLEAN_PATH = ROOT_DIR / "data" / "processed" / "phems_clean.csv"

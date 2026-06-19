@@ -127,6 +127,43 @@ Raw ICU datasets
 
 ---
 
+## File Paths
+
+Scripts do **not** use hardcoded absolute paths. Every script finds the repo root
+on its own using the exact same line:
+
+```python
+# Repo root: walk up until we find requirements.txt (works at any nesting depth).
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
+
+CSV_PATH = ROOT_DIR / "data" / "processed" / "physionet_balanced.csv"
+```
+
+How it works: starting from the script's own location, it walks up the folders
+until it finds `requirements.txt` (the marker that sits at the repo root). That
+folder becomes `ROOT_DIR`, and every data/output path is built from it.
+
+What this means for you:
+
+- **Just clone and run** — paths work on any machine, no editing needed.
+- All data and output paths are built from `ROOT_DIR`, never typed out by hand.
+- Keep data where the repo expects it: `data/` and `outputs/` under the repo root.
+- **It does not matter how deep a script is nested** — there is no folder-depth
+  number to keep in sync. You can move or copy a script anywhere in the repo and
+  it still finds the root. (This replaced the old, fragile `parents[N]` approach.)
+- If you add a new script, just copy that same `ROOT_DIR` line — it is identical
+  in every file on purpose.
+- If your data must live outside the repo, don't change code — symlink it in:
+  ```bash
+  ln -s /path/to/your/data data
+  ```
+
+> **Known issue:** `gemini_0shot_with_context.py` and `gemini_0shot_and_fewshot_with_context.py`
+> still use a relative `CSV_PATH = "Dataset_balanced.csv"` instead of the `ROOT_DIR` pattern.
+> They need converting once we confirm whether that file is a real separate dataset or just `physionet_balanced.csv`.
+
+---
+
 ## How to Run
 
 Create and activate a virtual environment:

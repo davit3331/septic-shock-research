@@ -13,7 +13,8 @@ from pathlib import Path
 # =========================
 # CONFIGURATION
 # =========================
-ROOT_DIR = Path(__file__).resolve().parents[2]
+# Repo root: walk up until we find requirements.txt (works at any nesting depth).
+ROOT_DIR = next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
 
 CSV_PATH = ROOT_DIR / "data" / "raw" / "physionet_2019.csv"
 OUTPUT_DIR = ROOT_DIR / "outputs" / "physionet_analysis"
