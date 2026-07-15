@@ -23,7 +23,7 @@ np.random.seed(SEED)
 # =========================
 # CONFIGURATION
 # =========================
-DATA_DIR = Path("/")
+DATA_DIR = Path("/content")
 OUTPUT_DIR = Path("/content/outputs")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -37,9 +37,19 @@ D_FF         = 256   # feed-forward dimension (paper uses 2048, we use 256)
 KERNEL_SIZE  = 16    # kernel attention size (paper uses 64) — NOTE: currently unused, see open issues
 DROPOUT      = 0.2   # dropout rate
 BATCH_SIZE   = 256   # batch size
-EPOCHS       = 100   # training epochs
+EPOCHS       = 100   # training epochs (upper bound — early stopping may end training sooner)
 LR           = 1e-4  # learning rate
 VAL_SIZE     = 0.2   # fraction of TRAIN set carved out for validation
+
+# EARLY STOPPING: stop training if validation loss hasn't improved for this
+# many consecutive epochs. Training logs showed train loss still dropping
+# at epoch 100 while val loss plateaus around epoch 50-60 — a classic
+# overfitting signature. Checkpoint selection was already by best val loss
+# (see FIX below), so this doesn't change which weights get used; it just
+# stops wasting compute on epochs that can't produce a better checkpoint,
+# and tells us how long training actually needs.
+PATIENCE     = 15
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print(f"Using device: {DEVICE}")
@@ -381,6 +391,13 @@ if __name__ == "__main__":
     print(f"Model parameters: {total_params:,}")
 
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    # NOTE: T_max stays at EPOCHS (the upper bound), not tied to early
+    # stopping. CosineAnnealingLR computes the LR for a given epoch from
+    # that epoch's index and T_max alone — it doesn't depend on whether
+    # training later stops early. So the LR trajectory up to whatever
+    # epoch ends up being "best" is unaffected by early stopping; we're
+    # just skipping epochs afterward that couldn't produce a better
+    # checkpoint anyway.
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
         optimizer, T_max=EPOCHS
     )
@@ -388,6 +405,9 @@ if __name__ == "__main__":
 
     print("\nTraining...")
     best_val_loss = float('inf')
+
+    # EARLY STOPPING: counts consecutive epochs with no val loss improvement.
+    epochs_no_improve = 0
 
     for epoch in range(1, EPOCHS + 1):
         start = time.time()
@@ -408,6 +428,14 @@ if __name__ == "__main__":
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), OUTPUT_DIR / "best_model.pt")
+            epochs_no_improve = 0
+        else:
+            epochs_no_improve += 1
+
+        if epochs_no_improve >= PATIENCE:
+            print(f"\nEarly stopping at epoch {epoch} "
+                  f"(no val loss improvement for {PATIENCE} consecutive epochs).")
+            break
 
     print(f"\nTraining complete. Best validation loss: {best_val_loss:.4f}")
     print("Loading best model (by validation loss)...")
